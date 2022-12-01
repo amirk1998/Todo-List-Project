@@ -124,10 +124,30 @@ form button:hover {
   opacity: 0.5;
 }
 
-/* .btn {
+select {
+  appearance: none;
   border: none;
   outline: none;
-  background-color: var(--secondaryColor);
-  font-size: 1rem;
-  padding: 0.5rem;
-} */
+  width: 100%;
+  padding: 1rem;
+  color: var(--primaryColor);
+}
+
+.select-class {
+  margin-left: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+  width: 10rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.select-class::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  color: var(--primaryColor);
+  pointer-events: none;
+}
