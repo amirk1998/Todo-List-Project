@@ -118,3 +118,16 @@ form button:hover {
 .fa-square-check {
   color: var(--primaryColor);
 }
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* .btn {
+  border: none;
+  outline: none;
+  background-color: var(--secondaryColor);
+  font-size: 1rem;
+  padding: 0.5rem;
+} */
