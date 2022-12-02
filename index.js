@@ -7,6 +7,7 @@ const filterOption = document.querySelector('.filter-todos');
 addTodoBtn.addEventListener('click', addTodo);
 todoList.addEventListener('click', checkRemove);
 filterOption.addEventListener('click', filterTodos);
+document.addEventListener('DOMContentLoaded', getLocalTodos);
 
 //function
 function addTodo(e) {
@@ -26,6 +27,9 @@ function addTodo(e) {
   todoDiv.innerHTML = newTodo;
   // append to todo list
   todoList.appendChild(todoDiv);
+
+  saveLocalTodos(todoInput.value);
+
   todoInput.value = '';
 }
 
@@ -36,8 +40,11 @@ function checkRemove(e) {
   const todoElement = item.parentElement.parentElement;
   // console.log(todoElement);
   if (classList[1] === 'fa-square-check') {
+    // const todoElement = item.parentElement.parentElement;
     todoElement.classList.toggle('completed');
   } else if (classList[1] === 'fa-trash-can') {
+    // const todoElement = item.parentElement.parentElement;
+    removeLocalTodos(todoElement);
     todoElement.remove();
   }
 }
@@ -47,6 +54,7 @@ function filterTodos(e) {
   // console.log(e.target.value);
   // console.log(todoList.childNodes);
   const todoArray = [...todoList.childNodes];
+  // console.log(todoArray);
   todoArray.forEach((element) => {
     switch (e.target.value) {
       case 'all':
@@ -69,4 +77,48 @@ function filterTodos(e) {
         break;
     }
   });
+}
+
+// Local
+function saveLocalTodos(item) {
+  // localStorage.getItem('todos')
+  // localStorage.setItem('todos',JSON.stringify(todos))
+
+  let savedTodos = localStorage.getItem('todos')
+    ? JSON.parse(localStorage.getItem('todos'))
+    : [];
+
+  savedTodos.push(item);
+  localStorage.setItem('todos', JSON.stringify(savedTodos));
+}
+
+function getLocalTodos() {
+  let savedTodos = localStorage.getItem('todos')
+    ? JSON.parse(localStorage.getItem('todos'))
+    : [];
+  savedTodos.forEach((element) => {
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todo');
+    const newTodo = `<li>${element}</li>
+    <span><i class="fa-regular fa-square-check"></i></span>
+    <span><i class="fa-solid fa-trash-can"></i></span>`;
+
+    todoDiv.innerHTML = newTodo;
+    // append to todo list
+    todoList.appendChild(todoDiv);
+  });
+}
+
+function removeLocalTodos(item) {
+  // console.log(item.children[0].innerText);
+  let savedTodos = localStorage.getItem('todos')
+    ? JSON.parse(localStorage.getItem('todos'))
+    : [];
+
+  const filteredTodos = savedTodos.filter((element) => {
+    //
+    element != item.children[0].innerText;
+  });
+
+  localStorage.setItem('todos', JSON.stringify(filteredTodos));
 }
