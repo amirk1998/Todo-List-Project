@@ -37,13 +37,13 @@ function checkRemove(e) {
   const classList = [...e.target.classList];
   // console.log(classList);
   const item = e.target;
-  const todoElement = item.parentElement.parentElement;
+  // const todoElement = item.parentElement.parentElement;
   // console.log(todoElement);
   if (classList[1] === 'fa-square-check') {
-    // const todoElement = item.parentElement.parentElement;
+    const todoElement = item.parentElement.parentElement;
     todoElement.classList.toggle('completed');
   } else if (classList[1] === 'fa-trash-can') {
-    // const todoElement = item.parentElement.parentElement;
+    const todoElement = item.parentElement.parentElement;
     removeLocalTodos(todoElement);
     todoElement.remove();
   }
@@ -117,7 +117,7 @@ function removeLocalTodos(item) {
 
   const filteredTodos = savedTodos.filter((element) => {
     //
-    element != item.children[0].innerText;
+    element !== item.children[0].innerText;
   });
 
   localStorage.setItem('todos', JSON.stringify(filteredTodos));
