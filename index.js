@@ -116,9 +116,17 @@ function removeLocalTodos(item) {
     : [];
 
   const filteredTodos = savedTodos.filter((element) => {
-    //
-    element !== item.children[0].innerText;
+    return element !== item.children[0].innerText;
   });
+
+  // Solved Problem => in filter,map,reduce methods , if we use {} in the callback function , we should use "return" to return the variable in these methods
+  // but if we delete {} , we do NOT need to use "return".
+
+  // OR
+  //
+  // const filteredTodos = savedTodos.filter(
+  //   (element) => element !== item.children[0].innerText
+  // );
 
   localStorage.setItem('todos', JSON.stringify(filteredTodos));
 }
